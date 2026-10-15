@@ -179,9 +179,37 @@ a { color: inherit; }
 .media-wide { aspect-ratio: 4 / 3; border-radius: var(--radius); border: 1px solid var(--border); }
 .media-hero { aspect-ratio: 5 / 4; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
 
+
+/* ---------- 6b. Experience cards, split features, compact items ---------- */
+.media-experience { aspect-ratio: 4 / 3; }
+.media-split { aspect-ratio: 4 / 3; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.media-compact { aspect-ratio: 16 / 10; }
+
+.experience-grid { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: var(--space-3); align-items: stretch; }
+.experience-card { display: flex; flex-direction: column; }
+.experience-card .card-body { padding: var(--space-3) var(--space-3) var(--space-3); }
+.experience-card .card-body h3 { font-size: 1.3rem; }
+.experience-card-lead { border-color: var(--blue); }
+.experience-card-lead .card-body h3 { font-size: 1.5rem; }
+
+.split { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-5); align-items: center; }
+.split-reverse .media-split { order: 2; }
+.split-copy h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom: var(--space-2); }
+.split-copy .lead { margin-bottom: var(--space-2); }
+.body-note { color: var(--text-muted); max-width: 52ch; margin-bottom: var(--space-3); }
+
+.product-card-compact .card-body { padding: var(--space-2) var(--space-3) var(--space-3); }
+.product-card-compact .card-body h3 { font-size: 1.05rem; }
+.product-card-compact .card-body p { margin: 0.35rem 0 var(--space-2); font-size: 0.92rem; }
+
+.repairs-band { display: grid; grid-template-columns: 0.7fr 1fr; gap: var(--space-4); align-items: center; }
+.repairs-band .media-repairs { border-radius: var(--radius); border: 1px solid var(--border); }
+.repairs-copy h2 { font-size: clamp(1.5rem, 2.8vw, 2rem); margin-bottom: 0.75rem; }
+.repairs-copy .btn { margin-top: var(--space-2); }
+
 /* ---------- 7. Hero ---------- */
 .hero { padding: var(--space-5) 0; }
-.hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--space-5); align-items: center; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-4); align-items: center; }
 .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); line-height: 1.1; letter-spacing: -0.03em; font-weight: 800; }
 .hero .lead { margin-top: var(--space-2); }
 .hero-note { margin-top: var(--space-3); font-size: 0.92rem; color: var(--text-muted); }
@@ -255,6 +283,10 @@ a { color: inherit; }
 /* ---------- 11. Responsive ---------- */
 @media (max-width: 1024px) {
   .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .experience-grid { grid-template-columns: 1fr 1fr; }
+  .experience-card-lead { grid-column: 1 / -1; }
+  .experience-card-lead .media-experience { aspect-ratio: 16 / 9; }
+  .nav-list a { font-size: 0.9rem; }
   .hero-grid, .repairs-top, .contact-panel { gap: var(--space-4); }
   .nav-list a { padding: 0.5rem 0.6rem; }
 }
@@ -277,7 +309,11 @@ a { color: inherit; }
   .nav-list a { padding: 0.85rem 0.75rem; font-size: 1rem; }
   .nav-cta { width: 100%; }
 
-  .hero-grid, .repairs-top, .contact-panel, .feature-grid { grid-template-columns: 1fr; }
+  .hero-grid, .repairs-top, .contact-panel, .feature-grid, .split, .repairs-band { grid-template-columns: 1fr; }
+  .split-reverse .media-split { order: 0; }
+  .experience-grid { grid-template-columns: 1fr; }
+  .experience-card-lead { grid-column: auto; order: -1; }
+  .experience-card-lead .media-experience { aspect-ratio: 4 / 3; }
   .card-grid-3 { grid-template-columns: 1fr; }
   .contact-panel { padding: var(--space-3); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
