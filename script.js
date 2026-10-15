@@ -8,18 +8,21 @@
    ========================================================= */
 
 /* ---------- 1. Image sources ----------
-   Paste an image URL (or a local path like "images/ps5.jpg") for each slot.
-   Leave a slot empty ("") to keep the neutral placeholder.
+   Each slot points to a bundled illustration. Swap in a photo URL or local path any time.
+   Set a slot to "" to show the neutral placeholder instead.
    If a URL fails to load, the placeholder stays, so there is never a broken image. */
 const IMAGES = {
-  hero:     "",  // Console + controller in a clean, well-lit setup
-  ps5:      "",  // PlayStation 5 console
-  ps4:      "",  // PlayStation 4 console
-  ps2:      "",  // PlayStation 2 console
-  consoles: "",  // Consoles on a retail shelf or display
-  quest:    "",  // Meta Quest VR headset
-  racing:   "",  // Racing simulator cockpit
-  repairs:  ""   // Console repair workbench
+  // Illustrations bundled in /assets so the demo works offline.
+  // Replace any of these with a real photo URL or path (e.g. "images/racing.jpg").
+  hero:     "assets/hero.svg",      // Photo idea: people playing a console game
+  gaming:   "assets/gaming.svg",    // Photo idea: person playing a console game
+  racing:   "assets/racing.svg",    // Photo idea: racing simulator cockpit, wheel, pedals, screen
+  vr:       "assets/vr.svg",        // Photo idea: person using a Meta Quest headset
+  ps5:      "assets/ps5.svg",       // Photo idea: PlayStation 5 console
+  ps4:      "assets/ps4.svg",       // Photo idea: PlayStation 4 console
+  ps2:      "assets/ps2.svg",       // Photo idea: PlayStation 2 console
+  consoles: "assets/consoles.svg",  // Photo idea: consoles on a retail shelf
+  repairs:  "assets/repairs.svg"    // Photo idea: console repair workbench
 };
 
 document.querySelectorAll("[data-image]").forEach((slot) => {
@@ -28,7 +31,6 @@ document.querySelectorAll("[data-image]").forEach((slot) => {
 
   const img = new Image();
   img.alt = slot.dataset.alt || "";
-  img.loading = "lazy";
   img.decoding = "async";
   img.addEventListener("load", () => {
     slot.appendChild(img);
@@ -88,9 +90,8 @@ window.matchMedia("(min-width: 861px)").addEventListener("change", (e) => {
 
 /* ---------- 4. Active nav link on scroll ---------- */
 const navLinks = [...document.querySelectorAll(".nav-list a")];
-const sections = navLinks
-  .map((a) => document.querySelector(a.getAttribute("href")))
-  .filter(Boolean);
+// Sections may declare data-nav to highlight a different nav link (e.g. the VR section highlights "VR & Racing")
+const sections = [...document.querySelectorAll("main section[id]")];
 
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver(
@@ -98,7 +99,7 @@ if ("IntersectionObserver" in window) {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         navLinks.forEach((a) => {
-          a.classList.toggle("is-active", a.getAttribute("href") === `#${entry.target.id}`);
+          a.classList.toggle("is-active", a.getAttribute("href") === `#${entry.target.dataset.nav || entry.target.id}`);
         });
       });
     },
